@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>progress bar Demo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet/less" type="text/css" href="style.less">
+    <!-- set options before less.js script -->
+<script>
+  less = {
+    env: "development",
+    async: false,
+    fileAsync: false,
+    poll: 1000,
+    functions: {},
+    dumpLineNumbers: "comments",
+    relativeUrls: false,
+  };
+</script>
+    <script type="text/javascript" src="less-1.7.0.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <style type="text/css">
+    .container{
+        position: absolute;
+        top:0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin:auto;
+        height: 200px;
+        width: 400px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><a href="#" onclick="launch()">click to launch progress</a></h2>
+    </div>
+
+<script type="text/javascript">      
+function launch() {
+    var pro = progress.create();
+    pro.setProgress(60);
+    pro.on("cancel",function(){
+        pro.destroy();
+    });
+    pro.on("pause",function(){
+        alert("you pause the progress");
+    });
+    var i = 0;
+    var fun = function(val) {
+            setTimeout(function(){
+                pro.setProgress(val);
+                if(i <= 100) {
+                    fun(i);
+                }
+                i+=0.1;
+            },5)
+    }
+    fun(0);
+
+}
+    </script>
+</body>
+</html>
